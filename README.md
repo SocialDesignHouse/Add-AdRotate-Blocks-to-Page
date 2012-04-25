@@ -3,6 +3,10 @@ Add-AdRotate-Blocks-to-Page
 
 Adds a options for dynamically adding AdRotate Blocks to WordPress pages.
 
+This is a EXTREMELY BETA version of this plug-in extension.
+
+It does not have all desired functionality implemented yet.
+
 What is it?
 -----------
 
@@ -54,7 +58,10 @@ And make sure to check out the features coming soon below.
 Coming Soon
 ------------
 
-    1. Toggle Positions between Ads, Groups, and Blocks.
-    2. Remove already saved post meta on uninstall.
-    3. Custom display function so post meta doesn't need to be retrieved manually.
-
+1. Toggle Positions between Ads, Groups, and Blocks.
+2. Remove already saved post meta on uninstall.
+3. Custom display function so post meta doesn't need to be retrieved manually.
+4. Restrict access to specific Positions by User Level or capability.
+5. Restrict access to creating and adding Positions by User Level or capability.
+6. Delete Add Block Positions. (currently you need to deactivate the plug-in)
+7. Plug-in saves Positions on deactivation.
