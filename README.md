@@ -45,8 +45,16 @@ Now, to display it in your template, use the built in AdRotate display functions
 Is that it?
 -----------
 
-Yes.
+For now.
 
 But feel free to tweak it to suit your needs.
+
+And make sure to check out the features coming soon below.
     
-    
+Coming Soon
+------------
+
+    1. Toggle Positions between Ads, Groups, and Blocks.
+    2. Remove already saved post meta on uninstall.
+    3. Custom display function so post meta doesn't need to be retrieved manually.
+
