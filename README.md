@@ -14,6 +14,10 @@ inside of.
 After setting up an AdRotate Ad Block Position in the options page, users can
 select a Block from a dropdown of all created Blocks when editing pages.
 
+You can create as many positions as you want, so if you site will have different
+ads in a sidebar and footer area, you can define two positions for the user to
+assign different blocks to when editing pages.
+
 Why use it?
 -----------
 
