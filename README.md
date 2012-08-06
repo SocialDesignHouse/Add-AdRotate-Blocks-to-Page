@@ -37,14 +37,14 @@ Let's say on the options page I define one Ad Block Position called My Block Pos
 
 So in a your page template:
 
-    `//get post custom meta data
+    //get post custom meta data
     $custom = get_post_custom($post->ID);
     //get AdRotate Block ID with position of My Block Position
-    $ad_block_id = $custom['my_block_position'][0];`
+    $ad_block_id = $custom['my_block_position'][0];
     
 Now, to display it in your template, use the built in AdRotate display functions.
 
-    `echo adrotate_block($ad_block_id);`
+    echo adrotate_block($ad_block_id);
 
 Is that it?
 -----------
