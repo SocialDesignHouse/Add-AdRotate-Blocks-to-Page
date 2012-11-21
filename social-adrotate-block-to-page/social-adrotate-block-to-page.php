@@ -3,7 +3,7 @@
 	Plugin Name: Add AdRotate Block to Page by Social
 	Plugin URI: http://apps.socialdesignhouse.com/plugins/adrotate-block-to-page/
 	Description: Add AdRotate Blocks to specific pages, modifies the page editor with a custom meta box. NOTE: AdRotate plug-in must be active for this plug-in to work.
-	Version: 1.5b
+	Version: 1.5.1b
 	Author: Eric Allen of Social Design House
 	Author URI: http://socialdesignhouse.com/
 	License: GPL2
@@ -11,6 +11,8 @@
 	
 	/*--------------------------------------------------- Change Log -----------------------------------------------------
 		
+	 +	2012-11-21		v1.5.1b		Added ability to also save an ad block title.
+
 	 +	2012-04-23		v1.5b		Added Options Page and Dynamic creation of AdRotate Block Positions.
 	
 	 +	2012-04-18		v1.0b		Made AdRotate Block to Page metabox show up on all pages. Added custom post meta
@@ -21,7 +23,9 @@
 	
 	//set up custom metabox
 	function add_adrotate_meta_box_to_page(){
-		add_meta_box("page_adrotate_block-meta", "AdRotate Block", "page_adrotate_block", "page", "side", "high");
+		add_meta_box("page_adrotate_block-meta","AdRotate Block","page_adrotate_block","page","side","high");
+		add_meta_box("page_adrotate_block-meta","AdRotate Block","page_adrotate_block","social_conference","side","high");
+		add_meta_box("page_adrotate_block-meta","AdRotate Block","page_adrotate_block","social_exhibition","side","high");
 	}
 	//run this funciton when initializing the admin area
 	add_action('admin_init','add_adrotate_meta_box_to_page');
@@ -47,7 +51,7 @@
 			}
 			$position_name = implode(' ',$word_array);
 			$pos_counter++;
-			$options_output = '<option id="block-none" value="0">Select a ' . $position_name . ' Block</option>';
+			$options_output = '<option id="block-none" value="0">Select an Ad Block</option>';
 			$pos_block_id = $custom[$position][0];
 			foreach($blocks as $block) {
 				if($block->id == $pos_block_id) {
@@ -56,13 +60,21 @@
 					$selected = '';
 				}
 				$options_output .= '<option id="block-' . $block->id . '" value="' . $block->id . '"' . $selected . '>' . $block->name . '</option>';
-			} ?>
+			} 
+			$block_title = $custom[$position . '_title'][0]; ?>
 			
 			<tr>
 				<td>
-					<label><?php echo $position_name; ?>:</label>
+					<label for="adrotate_title_<?php echo $position; ?>">Ad Block <?php echo $pos_counter; ?> Title</label><br />
+					<input type="text" id="adrotate_title_<?php echo $position; ?>" name="adrotate_title_<?php echo $position; ?>" value="<?php echo $block_title; ?>" />
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label>Ad Block <?php echo $pos_counter; ?><?php //echo $position_name; ?>:</label>
+				</td>
+			</tr>
+			<tr>
 				<td>
 					<select id="adrotate_block_<?php echo $position; ?>" name="adrotate_block_<?php echo $position; ?>">
 	
@@ -82,9 +94,12 @@
 	function save_adrotate_blocks_to_page() {
 		global $post;
 		foreach($_POST as $key => $value) {
-			if(substr($key,0,15) == 'adrotate_block_') {
-				$block_position = substr($key,15);
-				update_post_meta($post->ID,$block_position,$value);
+			if(substr($key, 0, 15) == 'adrotate_block_') {
+				$block_position = substr($key, 15);
+				update_post_meta($post->ID, $block_position, $value);
+			} elseif(substr($key, 0, 15) == 'adrotate_title_') {
+				$block_title = substr($key, 15) . '_title';
+				update_post_meta($post->ID, $block_title, $value);
 			}
 		}
 	}
@@ -121,7 +136,6 @@
 	//add the item to the admin menu
 	function social_adrotate_to_page_menu() {
 		add_submenu_page('adrotate','AdRotate to Page','AdRotate to Page','administrator','adrotate-to-page-options','social_adrotate_to_page_options_page');
-	//	add_submenu_page('options-general.php','AdRotate to Page','AdRotate to Page','administrator','adrotate-to-page-options','social_adrotate_to_page_options_page');
 	}
 	//run when admin menu is being created
 	add_action('admin_menu','social_adrotate_to_page_menu');
